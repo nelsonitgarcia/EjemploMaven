@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2d3aa1c1-a7ce-47d7-b5b4-bf75b5b71a88">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="PFECDESDE" class="java.util.Date"/>
+	<parameter name="PFECHASTA" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[select v.idvuelo,
+o.aeropuerto as origen,
+d.aeropuerto as destino,
+v.fecha as fecha_hora_salida,
+v.estado,
+a.descripcion as avion
+from avion a, aeropuerto o, aeropuerto d, vuelo v
+where a.idavion = v.idavion and
+o.idaeropuerto=v.idorigen and d.idaeropuerto=v.iddestino
+AND ($P{PFECDESDE} <= v.fecha and v.fecha <= $P{PFECHASTA})]]>
+	</queryString>
+	<field name="idvuelo" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="origen" class="java.lang.String"/>
+	<field name="destino" class="java.lang.String"/>
+	<field name="fecha_hora_salida" class="java.sql.Timestamp"/>
+	<field name="estado" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="avion" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="248" y="32" width="100" height="20" uuid="a33a1d25-3765-4752-a3d1-9999f58c1fd2"/>
+				<text><![CDATA[Reporte de Vuelos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="52" width="37" height="15" uuid="fc3ad7d9-c417-4d05-8d0f-934f281ee8da"/>
+				<text><![CDATA[Desde:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="262" y="52" width="31" height="15" uuid="e3ebbe27-658f-453e-9b7a-d4a1abd1b6a3"/>
+				<text><![CDATA[Hasta:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="87" y="52" width="100" height="20" uuid="9ba1f246-a564-452f-b7d4-4fe4d0ffeb20"/>
+				<textFieldExpression><![CDATA[$P{PFECDESDE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="293" y="52" width="100" height="20" uuid="2f30f31f-596b-435e-a522-de1c718d5578"/>
+				<textFieldExpression><![CDATA[$P{PFECHASTA}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="16" splitType="Stretch">
+			<staticText>
+				<reportElement x="18" y="1" width="31" height="11" uuid="fb463e9b-2619-43e8-a788-bf9a6ce1992a"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[idvuelo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="1" width="100" height="11" uuid="eaecef32-5747-4bce-af05-5eaccd3a58e1"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[origen]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="162" y="1" width="100" height="11" uuid="bfe4d035-c8ec-46d3-a1d5-35d0b619cae7"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[destino]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="267" y="1" width="100" height="11" uuid="d20e04f7-5792-4b89-8a48-e89b07384b09"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[fecha_hora_salida]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="375" y="1" width="100" height="11" uuid="888f5592-52ef-4a5a-a0c5-c27c6dfff94c"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[estado]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="19" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="4" width="49" height="11" uuid="cea90e4f-a575-4a43-b57d-dec4215d5524"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{idvuelo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="50" y="4" width="100" height="11" uuid="ade94926-7a1f-41f5-be37-ef95206a0bd1"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{origen}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="162" y="4" width="100" height="11" uuid="03670e59-2b2d-4a42-868d-5031a600b1fc"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{destino}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="267" y="4" width="100" height="11" uuid="1754e77b-7289-4fbe-b046-e143b57666ba"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha_hora_salida}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="375" y="4" width="100" height="11" uuid="059caaa9-f332-4bed-94d1-9d1470a4be23"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{estado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
